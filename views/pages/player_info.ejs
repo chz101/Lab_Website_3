@@ -1,0 +1,106 @@
+<% include ../partials/header %>
+<% include ../partials/menu %>
+	<div class="container">
+		<br>
+		<div class="row">
+			<div class="col-4">
+				<div class="card">
+				  <% 
+				  var image_src = '../resources/img/helmet.jpg';
+				  %>
+				  <%if(typeof result_2 != 'undefined'){%>
+				  	<%var image_src = result_2[0].img_src;%>
+				  <%}%>
+				 <img class="card-img-top" id="player_img" src= "<%- image_src %>" alt="Image of Football Player">
+				  <div class="card-body mx-auto">
+					<form class="form"action="/player_info/post" method="get">
+						<select class="custom-select" name="player_choice" onchange="this.form.submit()">
+							 <option selected>Select Player</option>
+	 			<%if(typeof data !='undefined'){
+				rows = ''
+				data.forEach(function(row){
+					rows +='<option '
+					rows += 'value= "'+row.id + '">'
+					rows += row.name
+					rows +='</option>'
+				}); %>
+				<%- rows%>
+				<%}%>
+						</select>
+					</form>
+				  </div>
+				</div>
+			</div>
+			<div class="col-8">
+				<div class="table-responsive">
+					<table class="table">
+						<tr>
+							<th>Year</th>
+							<td>
+	 					<%if(typeof result_2 != 'undefined'){
+							%><%- result_2[0].year%> 
+							<%}%>
+							</td>
+						</tr>
+						<tr>
+							<th>Major</th>
+							<td>
+	 					<%if(typeof result_2 !='undefined'){
+							%><%- result_2[0].major%> 
+							<%}%>
+							</td>
+						</tr>
+						<tr>
+							<th>Games Played</th>
+							<td>
+	 					<%if(typeof result_3 !='undefined'){
+							%><%- result_3[0].count%> 
+							<%}%>
+							</td>
+						</tr>
+						<tr>
+							<td>Passing Yards: 
+	 					<%if(typeof result_3 !='undefined'){
+							%><%- result_2[0].passing_yards%> 
+							<%}%>
+							</td>
+							<td>Avg. Passing Yards:
+	 					<%if(typeof result_3 !='undefined'){%>
+							<%total = 0;
+							total = result_2[0].passing_yards/result_3[0].count;
+							%><%- total%>
+							<%}%> </td>
+						</tr>
+						<tr>
+							<td>Rushing Yards:
+	 					<%if(typeof result_3 !='undefined'){
+							%><%- result_2[0].rushing_yards%> 
+							<%}%>
+							</td>
+							<td>Avg. Rushing Yards:
+	 					<%if(typeof result_3 !='undefined'){%>
+							<%total = 0;
+							total = result_2[0].rushing_yards/result_3[0].count;
+							%><%- total%>
+							<%}%> </td>
+						</tr>
+						<tr>
+							<td>Receiving Yards:
+	 					<%if(typeof result_3 !='undefined'){
+							%><%- result_2[0].receiving_yards%> 
+							<%}%>
+							</td>
+							<td>Avg. Receiving Yards:
+	 					<%if(typeof result_3 !='undefined'){%>
+							<%total = 0;
+							total = result_2[0].receiving_yards/result_3[0].count;
+							%><%- total%>
+							<%}%> </td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+  
+<% include ../partials/footer %>
